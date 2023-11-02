@@ -1,0 +1,25 @@
+.popUp {
+  margin: auto;
+  width: 400px;
+  height: 140px;
+  padding: 20px;
+  text-align: center;
+  background-color: #00000080;
+  color: white;
+  transform: translateY(-170%);
+  border-radius: 20px;
+}
+
+.popUp__btn {
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+  background-color: wheat;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.popUp__message {
+  display: block;
+  font-size: 2rem;
+}
