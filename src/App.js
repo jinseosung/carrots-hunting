@@ -1,19 +1,23 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="game">
+      <header className="game__header">
+        <button className="game__btn">
+          <FontAwesomeIcon icon={faPlay} />
+        </button>
+        <span className="game__timer">00:00</span>
+        <span className="game__score">10</span>
       </header>
+      <section className="game__field"></section>
+      <section className="popUp">
+        <button className="popUp__btn">
+          <FontAwesomeIcon icon={faArrowRotateRight} />
+        </button>
+        <span className="popUp__message">replay</span>
+      </section>
     </div>
   );
 }
