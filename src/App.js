@@ -1,24 +1,36 @@
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
+import PopUp from "./components/PopUp";
+import bgImg from "./assets/img/background.png";
+import Field from "./components/Field";
 
 function App() {
+  const [play, setPlay] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
+
+  const onGamePlay = () => {
+    !play ? setPlay(true) : setPlay(false);
+  };
+
   return (
-    <div className="game">
-      <header className="game__header">
-        <button className="game__btn">
-          <FontAwesomeIcon icon={faPlay} />
-        </button>
-        <span className="game__timer">00:00</span>
-        <span className="game__score">10</span>
-      </header>
-      <section className="game__field"></section>
-      <section className="popUp">
-        <button className="popUp__btn">
-          <FontAwesomeIcon icon={faArrowRotateRight} />
-        </button>
-        <span className="popUp__message">replay</span>
+    <>
+      <section style={{ backgroundImage: `url(${bgImg})` }} className="game">
+        <header className="game__header">
+          <button onClick={onGamePlay} className="game__btn">
+            {play ? (
+              <FontAwesomeIcon icon={faStop} />
+            ) : (
+              <FontAwesomeIcon icon={faPlay} />
+            )}
+          </button>
+          <span className="game__timer">00:00</span>
+          <span className="game__score">10</span>
+        </header>
+        {play && <Field />}
       </section>
-    </div>
+      {showPopUp && <PopUp />}
+    </>
   );
 }
 

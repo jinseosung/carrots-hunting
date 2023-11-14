@@ -7,17 +7,8 @@ const Field = () => {
   const [carrots, setCarrots] = useState([]);
   const ref = useRef(null);
 
-  useEffect(() => {
-    const fieldRect = ref.current.getBoundingClientRect();
-    const fieldWidth = fieldRect.width;
-    const fieldHeight = fieldRect.height;
-
-    addItems(5, setCarrots, carrot, fieldWidth, fieldHeight);
-    addItems(5, setBugs, bug, fieldWidth, fieldHeight);
-  }, []);
-
   const randomNum = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1) + min);
+    return Math.floor(Math.random() * (max - min) + min);
   };
 
   const addItems = (num, setItemsFunc, imgSrc, maxWidth, maxHeight) => {
@@ -41,6 +32,15 @@ const Field = () => {
 
     setItemsFunc(items);
   };
+
+  useEffect(() => {
+    const fieldRect = ref.current.getBoundingClientRect();
+    const fieldWidth = fieldRect.width;
+    const fieldHeight = fieldRect.height;
+
+    addItems(5, setCarrots, carrot, fieldWidth, fieldHeight);
+    addItems(5, setBugs, bug, fieldWidth, fieldHeight);
+  }, []);
 
   return (
     <section ref={ref} className="game__field">
