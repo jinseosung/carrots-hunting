@@ -6,6 +6,7 @@ const Field = () => {
   const [bugs, setBugs] = useState([]);
   const [carrots, setCarrots] = useState([]);
   const ref = useRef(null);
+  const CARROT_SIZE = 80;
 
   const randomNum = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min);
@@ -16,8 +17,8 @@ const Field = () => {
     for (let i = 0; i < num; i++) {
       const style = {
         position: "absolute",
-        left: `${randomNum(0, maxWidth - 50)}px`,
-        bottom: `${randomNum(0, maxHeight - 50)}px`,
+        left: `${randomNum(0, maxWidth - CARROT_SIZE)}px`,
+        bottom: `${randomNum(0, maxHeight - CARROT_SIZE)}px`,
       };
 
       items.push(
