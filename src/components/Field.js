@@ -2,9 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import bug from "../assets/img/bug.png";
 import carrot from "../assets/img/carrot.png";
 
-const Field = () => {
-  const [bugs, setBugs] = useState([]);
-  const [carrots, setCarrots] = useState([]);
+const Field = ({bugs, setBugs,carrots, setCarrots}) => {
   const ref = useRef(null);
   const CARROT_SIZE = 80;
 

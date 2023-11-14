@@ -5,9 +5,12 @@ import PopUp from "./components/PopUp";
 import bgImg from "./assets/img/background.png";
 import Field from "./components/Field";
 import Timer from "./components/Timer";
+import Score from "./components/Score";
 
 function App() {
   const [play, setPlay] = useState(false);
+  const [bugs, setBugs] = useState([]);
+  const [carrots, setCarrots] = useState([]);
   const [showPopUp, setShowPopUp] = useState(false);
 
   const onGamePlay = () => {
@@ -26,9 +29,16 @@ function App() {
             )}
           </button>
           <Timer play={play} />
-          <span className="game__score">10</span>
+          <Score play={play} />
         </header>
-        {play && <Field />}
+        {play && (
+          <Field
+            bugs={bugs}
+            setBugs={setBugs}
+            carrots={carrots}
+            setCarrots={setCarrots}
+          />
+        )}
       </section>
       {showPopUp && <PopUp />}
     </>
