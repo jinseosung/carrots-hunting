@@ -4,6 +4,7 @@ import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
 import PopUp from "./components/PopUp";
 import bgImg from "./assets/img/background.png";
 import Field from "./components/Field";
+import Timer from "./components/Timer";
 
 function App() {
   const [play, setPlay] = useState(false);
@@ -24,7 +25,7 @@ function App() {
               <FontAwesomeIcon icon={faPlay} />
             )}
           </button>
-          <span className="game__timer">00:00</span>
+          <Timer play={play} />
           <span className="game__score">10</span>
         </header>
         {play && <Field />}
