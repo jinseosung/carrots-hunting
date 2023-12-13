@@ -8,8 +8,9 @@ const Field = ({
   carrots,
   setCarrots,
   handleItemClick,
-  play,
-  ITEMS,
+  started,
+  ITEMS_NUM,
+  resetFieldKey,
 }) => {
   const ref = useRef(null);
   const CARROT_SIZE = 80;
@@ -48,14 +49,14 @@ const Field = ({
     const fieldWidth = fieldRect.width;
     const fieldHeight = fieldRect.height;
 
-    if (play) {
+    if (started) {
       setCarrots([]);
       setBugs([]);
 
-      addItems(ITEMS, setCarrots, carrot, fieldWidth, fieldHeight);
-      addItems(ITEMS, setBugs, bug, fieldWidth, fieldHeight);
+      addItems(ITEMS_NUM, setCarrots, carrot, fieldWidth, fieldHeight);
+      addItems(ITEMS_NUM, setBugs, bug, fieldWidth, fieldHeight);
     }
-  }, [play]);
+  }, [started, resetFieldKey]);
 
   return (
     <section ref={ref} className="game__field">

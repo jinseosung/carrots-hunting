@@ -8,16 +8,19 @@ import Timer from "./components/Timer";
 import Score from "./components/Score";
 
 function App() {
-  const [play, setPlay] = useState(false);
+  const [started, setStarted] = useState(false);
   const [bugs, setBugs] = useState([]);
   const [carrots, setCarrots] = useState([]);
   const [showPopUp, setShowPopUp] = useState(false);
-  const ITEMS = 5;
-  const [score, setScore] = useState(ITEMS);
+  const ITEMS_NUM = 5;
+  const TIME = 5;
+  const [score, setScore] = useState(ITEMS_NUM);
+  const [resetFieldKey, setResetFieldKey] = useState(0);
+  const [time, setTime] = useState(TIME);
 
   const onGamePlay = () => {
-    if (!play) {
-      setPlay(true);
+    if (!started) {
+      setStarted(true);
     } else {
       setShowPopUp(true);
     }
@@ -27,7 +30,14 @@ function App() {
     if (isBug) {
       setShowPopUp(true);
     } else {
-      setScore((prevScore) => prevScore - 1);
+      setScore((prevScore) => {
+        const newScore = prevScore - 1;
+        if (newScore === 0) {
+          setShowPopUp(true);
+        }
+        return newScore;
+      });
+
       setCarrots((prevCarrots) => {
         const newCarrots = prevCarrots.filter((carrot) => carrot.key !== key);
         return newCarrots;
@@ -35,20 +45,33 @@ function App() {
     }
   };
 
+  const handleGameRestart = () => {
+    setStarted(true);
+    setScore(ITEMS_NUM);
+    setTime(TIME);
+    setShowPopUp(false);
+    setResetFieldKey((prevKey) => prevKey + 1);
+  };
+
   return (
     <>
       <section style={{ backgroundImage: `url(${bgImg})` }} className="game">
         <header className="game__header">
-          <button onClick={onGamePlay} className="game__btn">
-            {play ? (
-              <FontAwesomeIcon icon={faStop} />
-            ) : (
-              <FontAwesomeIcon icon={faPlay} />
-            )}
+          <button
+            onClick={onGamePlay}
+            className="game__btn"
+            style={showPopUp ? { visibility: "hidden" } : {}}
+          >
+            <FontAwesomeIcon icon={started ? faStop : faPlay} />
           </button>
-          {play && (
+          {started && (
             <>
-              <Timer play={play} showPopUp={showPopUp} score={score} />
+              <Timer
+                time={time}
+                setTime={setTime}
+                showPopUp={showPopUp}
+                score={score}
+              />
               <Score score={score} />
             </>
           )}
@@ -58,12 +81,13 @@ function App() {
           setBugs={setBugs}
           carrots={carrots}
           setCarrots={setCarrots}
-          play={play}
+          started={started}
           handleItemClick={handleItemClick}
-          ITEMS={ITEMS}
+          ITEMS_NUM={ITEMS_NUM}
+          resetFieldKey={resetFieldKey}
         />
       </section>
-      {showPopUp && <PopUp setPlay={setPlay} setShowPopUp={setShowPopUp} />}
+      {showPopUp && <PopUp handleGameRestart={handleGameRestart} />}
     </>
   );
 }

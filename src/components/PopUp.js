@@ -1,16 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
 
-const PopUp = ({ setPlay, setShowPopUp }) => {
+const PopUp = ({ handleGameRestart }) => {
   return (
     <section className="popUp">
-      <button
-        className="popUp__btn"
-        onClick={() => {
-          setPlay(true);
-          setShowPopUp(false);
-        }}
-      >
+      <button className="popUp__btn" onClick={handleGameRestart}>
         <FontAwesomeIcon icon={faArrowRotateRight} />
       </button>
       <span className="popUp__message">replay</span>

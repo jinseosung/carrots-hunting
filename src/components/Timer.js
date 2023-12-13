@@ -1,22 +1,18 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
-const Timer = ({ play, showPopUp, score }) => {
-  const [time, setTime] = useState(5);
-
+const Timer = ({ time, setTime, showPopUp, score }) => {
   useEffect(() => {
     let myTimer;
 
-    if (play) {
-      myTimer = setInterval(() => {
-        setTime((prevTime) => {
-          if (prevTime <= 0) {
-            clearInterval(myTimer);
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-    }
+    myTimer = setInterval(() => {
+      setTime((prevTime) => {
+        if (prevTime <= 0) {
+          clearInterval(myTimer);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
     if (showPopUp || score === 0) {
       clearInterval(myTimer);
     }
@@ -24,7 +20,7 @@ const Timer = ({ play, showPopUp, score }) => {
     return () => {
       clearInterval(myTimer);
     };
-  }, [play, time, showPopUp, score]);
+  }, [showPopUp]);
 
   const formattedMinutes = String(Math.floor(time / 60)).padStart(2, "0");
   const formattedSeconds = String(time % 60).padStart(2, "0");
