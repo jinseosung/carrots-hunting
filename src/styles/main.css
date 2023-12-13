@@ -81,7 +81,10 @@ button {
   text-align: center;
   background-color: rgba(0, 0, 0, 0.5019607843);
   color: white;
-  transform: translateY(-170%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border-radius: 20px;
 }
 

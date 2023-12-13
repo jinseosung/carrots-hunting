@@ -17,22 +17,26 @@ function App() {
   const [score, setScore] = useState(ITEMS_NUM);
   const [resetFieldKey, setResetFieldKey] = useState(0);
   const [time, setTime] = useState(TIME);
+  const [popUpMessage, setPopUpMessage] = useState("");
 
   const onGamePlay = () => {
     if (!started) {
       setStarted(true);
     } else {
+      setPopUpMessage("Recommencé ❓");
       setShowPopUp(true);
     }
   };
 
   const handleItemClick = (key, isBug) => {
     if (isBug) {
+      setPopUpMessage("Perdu 😥");
       setShowPopUp(true);
     } else {
       setScore((prevScore) => {
         const newScore = prevScore - 1;
         if (newScore === 0) {
+          setPopUpMessage("Gagné 🎉");
           setShowPopUp(true);
         }
         return newScore;
@@ -87,7 +91,12 @@ function App() {
           resetFieldKey={resetFieldKey}
         />
       </section>
-      {showPopUp && <PopUp handleGameRestart={handleGameRestart} />}
+      {showPopUp && (
+        <PopUp
+          handleGameRestart={handleGameRestart}
+          popUpMessage={popUpMessage}
+        />
+      )}
     </>
   );
 }
