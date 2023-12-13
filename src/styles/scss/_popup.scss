@@ -20,6 +20,8 @@
   background-color: wheat;
   border: 2px solid black;
   border-radius: 50%;
+
+  @include hover-effect;
 }
 
 .popUp__message {
