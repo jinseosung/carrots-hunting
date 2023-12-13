@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
 import PopUp from "./components/PopUp";
@@ -6,6 +6,12 @@ import bgImg from "./assets/img/background.png";
 import Field from "./components/Field";
 import Timer from "./components/Timer";
 import Score from "./components/Score";
+
+import bgSound from "./assets/sound/bg.mp3";
+import alertSound from "./assets/sound/alert.wav";
+import bugSound from "./assets/sound/bug_pull.mp3";
+import carrotSound from "./assets/sound/carrot_pull.mp3";
+import winSound from "./assets/sound/game_win.mp3";
 
 function App() {
   const [started, setStarted] = useState(false);
@@ -19,10 +25,28 @@ function App() {
   const [time, setTime] = useState(TIME);
   const [popUpMessage, setPopUpMessage] = useState("");
 
+  const loadSound = (file) => {
+    const sound = new Audio(file);
+    return {
+      play: () => {
+        sound.currentTime = 0;
+        sound.play();
+      },
+      stop: () => {
+        sound.pause();
+      },
+    };
+  };
+
+  const bgSoundRef = useRef(loadSound(bgSound));
+
   const onGamePlay = () => {
     if (!started) {
       setStarted(true);
+      bgSoundRef.current.play();
     } else {
+      bgSoundRef.current.stop();
+      loadSound(alertSound).play();
       setPopUpMessage("Recommencé ❓");
       setShowPopUp(true);
     }
@@ -30,12 +54,17 @@ function App() {
 
   const handleItemClick = (key, isBug) => {
     if (isBug) {
+      loadSound(bugSound).play();
+      bgSoundRef.current.stop();
       setPopUpMessage("Perdu 😥");
       setShowPopUp(true);
     } else {
+      loadSound(carrotSound).play();
       setScore((prevScore) => {
         const newScore = prevScore - 1;
         if (newScore === 0) {
+          bgSoundRef.current.stop();
+          loadSound(winSound).play();
           setPopUpMessage("Gagné 🎉");
           setShowPopUp(true);
         }
@@ -55,6 +84,7 @@ function App() {
     setTime(TIME);
     setShowPopUp(false);
     setResetFieldKey((prevKey) => prevKey + 1);
+    bgSoundRef.current.play();
   };
 
   return (
