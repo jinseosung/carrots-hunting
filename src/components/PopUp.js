@@ -4,10 +4,12 @@ import { faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
 const PopUp = ({ handleGameRestart, popUpMessage }) => {
   return (
     <section className="popUp">
-      <button className="popUp__btn" onClick={handleGameRestart}>
-        <FontAwesomeIcon icon={faArrowRotateRight} />
-      </button>
-      <span className="popUp__message">{popUpMessage}</span>
+      <div className="popUp__container">
+        <button className="popUp__btn" onClick={handleGameRestart}>
+          <FontAwesomeIcon icon={faArrowRotateRight} />
+        </button>
+        <span className="popUp__message">{popUpMessage}</span>
+      </div>
     </section>
   );
 };

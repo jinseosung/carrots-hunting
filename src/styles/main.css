@@ -74,6 +74,12 @@ button {
 }
 
 .popUp {
+  width: 900px;
+  height: 500px;
+  position: absolute;
+  top: 0;
+}
+.popUp .popUp__container {
   margin: auto;
   width: 400px;
   height: 140px;
@@ -81,14 +87,13 @@ button {
   text-align: center;
   background-color: rgba(0, 0, 0, 0.5019607843);
   color: white;
+  border-radius: 20px;
   position: absolute;
   top: 15rem;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 20px;
 }
-
-.popUp__btn {
+.popUp .popUp__container .popUp__btn {
   width: 60px;
   height: 60px;
   font-size: 1.5rem;
@@ -97,11 +102,10 @@ button {
   border-radius: 50%;
   transition: transform 0.2s ease-in;
 }
-.popUp__btn:hover {
+.popUp .popUp__container .popUp__btn:hover {
   transform: scale(1.1);
 }
-
-.popUp__message {
+.popUp .popUp__container .popUp__message {
   display: block;
   font-size: 2rem;
 }

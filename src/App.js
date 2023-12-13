@@ -53,6 +53,7 @@ function App() {
   };
 
   const handleItemClick = (key, isBug) => {
+    if (showPopUp) return;
     if (isBug) {
       loadSound(bugSound).play();
       bgSoundRef.current.stop();
