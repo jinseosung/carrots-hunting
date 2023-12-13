@@ -7,24 +7,12 @@ const Field = ({
   setBugs,
   carrots,
   setCarrots,
-  setPlay,
+  handleItemClick,
   play,
-  setScore,
+  ITEMS,
 }) => {
   const ref = useRef(null);
   const CARROT_SIZE = 80;
-
-  const handleItemClick = (key, isBug) => {
-    if (isBug) {
-      setPlay(!play);
-    } else {
-      setScore((prevScore) => prevScore + 1);
-      setCarrots((prevCarrots) => {
-        const newCarrots = prevCarrots.filter((carrot) => carrot.key !== key);
-        return newCarrots;
-      });
-    }
-  };
 
   const randomNum = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min);
@@ -60,9 +48,14 @@ const Field = ({
     const fieldWidth = fieldRect.width;
     const fieldHeight = fieldRect.height;
 
-    addItems(5, setCarrots, carrot, fieldWidth, fieldHeight);
-    addItems(5, setBugs, bug, fieldWidth, fieldHeight);
-  }, []);
+    if (play) {
+      setCarrots([]);
+      setBugs([]);
+
+      addItems(ITEMS, setCarrots, carrot, fieldWidth, fieldHeight);
+      addItems(ITEMS, setBugs, bug, fieldWidth, fieldHeight);
+    }
+  }, [play]);
 
   return (
     <section ref={ref} className="game__field">

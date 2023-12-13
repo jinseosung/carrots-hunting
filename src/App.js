@@ -11,14 +11,28 @@ function App() {
   const [play, setPlay] = useState(false);
   const [bugs, setBugs] = useState([]);
   const [carrots, setCarrots] = useState([]);
-  const [score, setScore] = useState(0);
   const [showPopUp, setShowPopUp] = useState(false);
+  const ITEMS = 5;
+  const [score, setScore] = useState(ITEMS);
 
   const onGamePlay = () => {
-    setCarrots(0);
-    setBugs(0);
-    setScore(0);
-    setPlay(!play);
+    if (!play) {
+      setPlay(true);
+    } else {
+      setShowPopUp(true);
+    }
+  };
+
+  const handleItemClick = (key, isBug) => {
+    if (isBug) {
+      setShowPopUp(true);
+    } else {
+      setScore((prevScore) => prevScore - 1);
+      setCarrots((prevCarrots) => {
+        const newCarrots = prevCarrots.filter((carrot) => carrot.key !== key);
+        return newCarrots;
+      });
+    }
   };
 
   return (
@@ -32,22 +46,24 @@ function App() {
               <FontAwesomeIcon icon={faPlay} />
             )}
           </button>
-          <Timer play={play} />
-          <Score score={score} />
+          {play && (
+            <>
+              <Timer play={play} />
+              <Score score={score} />
+            </>
+          )}
         </header>
-        {play && (
-          <Field
-            bugs={bugs}
-            setBugs={setBugs}
-            carrots={carrots}
-            setCarrots={setCarrots}
-            setPlay={setPlay}
-            play={play}
-            setScore={setScore}
-          />
-        )}
+        <Field
+          bugs={bugs}
+          setBugs={setBugs}
+          carrots={carrots}
+          setCarrots={setCarrots}
+          play={play}
+          handleItemClick={handleItemClick}
+          ITEMS={ITEMS}
+        />
       </section>
-      {showPopUp && <PopUp />}
+      {showPopUp && <PopUp setPlay={setPlay} setShowPopUp={setShowPopUp} />}
     </>
   );
 }
