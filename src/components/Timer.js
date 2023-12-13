@@ -1,41 +1,36 @@
 import { useState, useEffect } from "react";
 
-const Timer = ({ play }) => {
-  const [minutes, setMinutes] = useState(1);
-  const [seconds, setSeconds] = useState(0);
+const Timer = ({ play, showPopUp, score }) => {
+  const [time, setTime] = useState(5);
 
   useEffect(() => {
     let myTimer;
 
     if (play) {
       myTimer = setInterval(() => {
-        if (seconds > 0) {
-          setSeconds((prev) => prev - 1);
-        } else if (minutes > 0) {
-          setMinutes((prev) => prev - 1);
-          setSeconds(59);
-        } else {
-          clearInterval(myTimer);
-        }
+        setTime((prevTime) => {
+          if (prevTime <= 0) {
+            clearInterval(myTimer);
+            return 0;
+          }
+          return prevTime - 1;
+        });
       }, 1000);
-    } else {
+    }
+    if (showPopUp || score === 0) {
       clearInterval(myTimer);
-      setMinutes(1);
-      setSeconds(0);
     }
 
     return () => {
       clearInterval(myTimer);
     };
-  }, [play, minutes, seconds]);
+  }, [play, time, showPopUp, score]);
 
-  const formattedMinutes = String(minutes).padStart(2, "0");
-  const formattedSeconds = String(seconds).padStart(2, "0");
+  const formattedMinutes = String(Math.floor(time / 60)).padStart(2, "0");
+  const formattedSeconds = String(time % 60).padStart(2, "0");
 
   return (
-    <span className="game__timer">
-      {play ? `${formattedMinutes}:${formattedSeconds}` : `00:00`}
-    </span>
+    <span className="game__timer">{`${formattedMinutes}:${formattedSeconds}`}</span>
   );
 };
 

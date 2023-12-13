@@ -48,7 +48,7 @@ function App() {
           </button>
           {play && (
             <>
-              <Timer play={play} />
+              <Timer play={play} showPopUp={showPopUp} score={score} />
               <Score score={score} />
             </>
           )}
