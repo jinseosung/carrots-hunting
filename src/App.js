@@ -14,7 +14,9 @@ function App() {
   const [showPopUp, setShowPopUp] = useState(false);
 
   const onGamePlay = () => {
-    !play ? setPlay(true) : setPlay(false);
+    setCarrots(0);
+    setBugs(0);
+    setPlay(!play);
   };
 
   return (
