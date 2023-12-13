@@ -12,8 +12,8 @@ function App() {
   const [bugs, setBugs] = useState([]);
   const [carrots, setCarrots] = useState([]);
   const [showPopUp, setShowPopUp] = useState(false);
-  const ITEMS_NUM = 5;
-  const TIME = 5;
+  const ITEMS_NUM = 20;
+  const TIME = 20;
   const [score, setScore] = useState(ITEMS_NUM);
   const [resetFieldKey, setResetFieldKey] = useState(0);
   const [time, setTime] = useState(TIME);
