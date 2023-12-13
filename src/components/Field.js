@@ -1,10 +1,30 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import bug from "../assets/img/bug.png";
 import carrot from "../assets/img/carrot.png";
 
-const Field = ({bugs, setBugs,carrots, setCarrots}) => {
+const Field = ({
+  bugs,
+  setBugs,
+  carrots,
+  setCarrots,
+  setPlay,
+  play,
+  setScore,
+}) => {
   const ref = useRef(null);
   const CARROT_SIZE = 80;
+
+  const handleItemClick = (key, isBug) => {
+    if (isBug) {
+      setPlay(!play);
+    } else {
+      setScore((prevScore) => prevScore + 1);
+      setCarrots((prevCarrots) => {
+        const newCarrots = prevCarrots.filter((carrot) => carrot.key !== key);
+        return newCarrots;
+      });
+    }
+  };
 
   const randomNum = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min);
@@ -13,6 +33,7 @@ const Field = ({bugs, setBugs,carrots, setCarrots}) => {
   const addItems = (num, setItemsFunc, imgSrc, maxWidth, maxHeight) => {
     const items = [];
     for (let i = 0; i < num; i++) {
+      const key = `item-${i}`;
       const style = {
         position: "absolute",
         left: `${randomNum(0, maxWidth - CARROT_SIZE)}px`,
@@ -21,10 +42,12 @@ const Field = ({bugs, setBugs,carrots, setCarrots}) => {
 
       items.push(
         <img
-          key={i}
+          key={key}
           src={imgSrc}
-          alt={imgSrc === "bug" ? "bug" : "carrot"}
+          alt={imgSrc === bug ? "bug" : "carrot"}
           style={style}
+          className="img"
+          onClick={() => handleItemClick(key, imgSrc === bug)}
         />
       );
     }

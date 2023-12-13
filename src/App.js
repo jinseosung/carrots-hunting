@@ -11,11 +11,13 @@ function App() {
   const [play, setPlay] = useState(false);
   const [bugs, setBugs] = useState([]);
   const [carrots, setCarrots] = useState([]);
+  const [score, setScore] = useState(0);
   const [showPopUp, setShowPopUp] = useState(false);
 
   const onGamePlay = () => {
     setCarrots(0);
     setBugs(0);
+    setScore(0);
     setPlay(!play);
   };
 
@@ -31,7 +33,7 @@ function App() {
             )}
           </button>
           <Timer play={play} />
-          <Score play={play} />
+          <Score score={score} />
         </header>
         {play && (
           <Field
@@ -39,6 +41,9 @@ function App() {
             setBugs={setBugs}
             carrots={carrots}
             setCarrots={setCarrots}
+            setPlay={setPlay}
+            play={play}
+            setScore={setScore}
           />
         )}
       </section>
