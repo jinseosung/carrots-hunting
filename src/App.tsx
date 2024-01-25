@@ -14,18 +14,18 @@ import carrotSound from "./assets/sound/carrot_pull.mp3";
 import winSound from "./assets/sound/game_win.mp3";
 
 function App() {
-  const [started, setStarted] = useState(false);
-  const [bugs, setBugs] = useState([]);
-  const [carrots, setCarrots] = useState([]);
-  const [showPopUp, setShowPopUp] = useState(false);
+  const [started, setStarted] = useState<boolean>(false);
+  const [bugs, setBugs] = useState<JSX.Element[]>([]);
+  const [carrots, setCarrots] = useState<JSX.Element[]>([]);
+  const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const ITEMS_NUM = 20;
   const TIME = 20;
-  const [score, setScore] = useState(ITEMS_NUM);
-  const [resetFieldKey, setResetFieldKey] = useState(0);
-  const [time, setTime] = useState(TIME);
-  const [popUpMessage, setPopUpMessage] = useState("");
+  const [score, setScore] = useState<number>(ITEMS_NUM);
+  const [resetFieldKey, setResetFieldKey] = useState<number>(0);
+  const [time, setTime] = useState<number>(TIME);
+  const [popUpMessage, setPopUpMessage] = useState<string>("");
 
-  const loadSound = (file) => {
+  const loadSound = (file: any) => {
     const sound = new Audio(file);
     return {
       play: () => {
@@ -52,7 +52,7 @@ function App() {
     }
   };
 
-  const handleItemClick = (key, isBug) => {
+  const handleItemClick = (key: string, isBug: any) => {
     if (showPopUp) return;
     if (isBug) {
       loadSound(bugSound).play();
