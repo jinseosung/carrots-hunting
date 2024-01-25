@@ -2,7 +2,18 @@ import { useEffect, useRef } from "react";
 import bug from "../assets/img/bug.png";
 import carrot from "../assets/img/carrot.png";
 
-const Field = ({
+type FieldProps = {
+  bugs: JSX.Element[];
+  setBugs: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
+  carrots: JSX.Element[];
+  setCarrots: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
+  handleItemClick: (key: string, isBug: any) => void;
+  started: boolean;
+  ITEMS_NUM: number;
+  resetFieldKey: number;
+};
+
+const Field: React.FC<FieldProps> = ({
   bugs,
   setBugs,
   carrots,
@@ -15,15 +26,21 @@ const Field = ({
   const ref = useRef(null);
   const CARROT_SIZE = 80;
 
-  const randomNum = (min, max) => {
+  const randomNum = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min) + min);
   };
 
-  const addItems = (num, setItemsFunc, imgSrc, maxWidth, maxHeight) => {
+  const addItems = (
+    num: number,
+    setItemsFunc: React.Dispatch<React.SetStateAction<JSX.Element[]>>,
+    imgSrc: string,
+    maxWidth: number,
+    maxHeight: number
+  ) => {
     const items = [];
     for (let i = 0; i < num; i++) {
       const key = `item-${i}`;
-      const style = {
+      const style: React.CSSProperties = {
         position: "absolute",
         left: `${randomNum(0, maxWidth - CARROT_SIZE)}px`,
         bottom: `${randomNum(0, maxHeight - CARROT_SIZE)}px`,
@@ -45,7 +62,8 @@ const Field = ({
   };
 
   useEffect(() => {
-    const fieldRect = ref.current.getBoundingClientRect();
+    const rect = ref.current as HTMLElement | null;
+    const fieldRect = rect!.getBoundingClientRect();
     const fieldWidth = fieldRect.width;
     const fieldHeight = fieldRect.height;
 
