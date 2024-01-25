@@ -1,8 +1,15 @@
 import { useEffect } from "react";
 
-const Timer = ({ time, setTime, showPopUp, score }) => {
+type TimerProps = {
+  time: number;
+  setTime: React.Dispatch<React.SetStateAction<number>>;
+  showPopUp: boolean;
+  score: number;
+};
+
+const Timer: React.FC<TimerProps> = ({ time, setTime, showPopUp, score }) => {
   useEffect(() => {
-    let myTimer;
+    let myTimer: ReturnType<typeof setInterval>;
 
     myTimer = setInterval(() => {
       setTime((prevTime) => {
