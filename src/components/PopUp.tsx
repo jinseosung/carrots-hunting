@@ -1,7 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
 
-const PopUp = ({ handleGameRestart, popUpMessage }) => {
+type PopUpProps = {
+  handleGameRestart: () => void;
+  popUpMessage: string;
+};
+
+const PopUp: React.FC<PopUpProps> = ({ handleGameRestart, popUpMessage }) => {
   return (
     <section className="popUp">
       <div className="popUp__container">
